@@ -3,12 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from 'react-router-dom';
 
+const baseUrl = document.getElementsByTagName('base')[0]?.getAttribute('href') || '';
 const root = document.getElementById('root') as HTMLElement;
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter basename={baseUrl}>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>,
   root
 );
