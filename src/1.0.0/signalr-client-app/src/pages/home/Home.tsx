@@ -8,6 +8,7 @@ export const Home: React.FC = () => {
     const [ connection, setConnection ] = React.useState<HubConnection | null>();
     const [ messages, setMessages ] = React.useState<Message[]>([]);
     const [ session, setSession ] = React.useState<{user: string, room: string}>({user: '', room: ''});
+    const [ users, setUsers ] = React.useState<string[]>([]);
 
     const joinRoom = async (user: string, room: string) => {
         try {
@@ -16,6 +17,10 @@ export const Home: React.FC = () => {
                 .configureLogging(LogLevel.Information)
                 .build();
 
+            connection.on("UsersInRoom", users => {
+                setUsers(users);
+            });
+
             connection.on("ReceiveMessage", (user, message) => {
                 setMessages(messages => [...messages, {user, message}]);
             });
@@ -23,6 +28,7 @@ export const Home: React.FC = () => {
             connection.onclose(e => {
                 setConnection(null);
                 setMessages([]);
+                setUsers([]);
             });
 
             await connection.start();
@@ -59,7 +65,7 @@ export const Home: React.FC = () => {
         {
             !connection
             ? <Lobby joinRoom={joinRoom} />
-            : <Chat session={{ ...session }} messages={messages} sendMessage={sendMessage} closeConnection={closeConnection} />
+            : <Chat session={{ ...session }} users={users} messages={messages} sendMessage={sendMessage} closeConnection={closeConnection} />
         }
     </div>;
 }
