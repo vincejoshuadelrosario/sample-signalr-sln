@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Button, Container, Form } from 'react-bootstrap';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import { ILobbyProps } from '.';
 
 export const Lobby: React.FC<ILobbyProps> = ({joinRoom}) => {
@@ -18,8 +19,5 @@ export const Lobby: React.FC<ILobbyProps> = ({joinRoom}) => {
             <Form.Control ref={room} placeholder='room' />
         </Form.Group>
         <Button variant='success' type='submit' disabled={!user || !room}>Join</Button>
-        <Container>
-            
-        </Container>
     </Form>;
 }
