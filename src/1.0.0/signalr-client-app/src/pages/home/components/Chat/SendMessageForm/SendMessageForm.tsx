@@ -3,6 +3,7 @@ import { ISendMessageFormProps } from './';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
+import { Send } from 'react-bootstrap-icons';
 
 export const SendMessage: React.FC<ISendMessageFormProps> = ({sendMessage}) => {
     const [ message, setMessage ] = React.useState<string>('');
@@ -20,7 +21,7 @@ export const SendMessage: React.FC<ISendMessageFormProps> = ({sendMessage}) => {
                 onChange={e => setMessage(e.target.value)} />
             <Button variant='primary'
                 type='submit'
-                disabled={!message} >Button</Button>
+                disabled={!message}><Send /></Button>
         </InputGroup>
     </Form>;
 }
