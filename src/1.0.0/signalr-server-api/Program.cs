@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.Formatters;
-using siglnalr_server_api.Hubs;
-using siglnalr_server_api.Models;
+using signalr_server_api.Hubs;
+using signalr_server_api.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 

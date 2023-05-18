@@ -1,4 +1,4 @@
-﻿namespace siglnalr_server_api.Models
+﻿namespace signalr_server_api.Models
 {
     public class UserConnection
     {
