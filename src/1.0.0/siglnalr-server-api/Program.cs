@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Mvc.Formatters;
 using siglnalr_server_api.Hubs;
+using siglnalr_server_api.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +26,8 @@ builder.Services.AddCors(options => {
         });
     */
 });
+
+builder.Services.AddSingleton<IDictionary<string, UserConnection>>(options => new Dictionary<string, UserConnection>());
 
 builder.Services.AddControllers();
 

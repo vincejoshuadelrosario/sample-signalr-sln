@@ -9,15 +9,14 @@ export const Home: React.FC = () => {
     const [ messages, setMessages ] = React.useState<Message[]>([]);
 
     const joinRoom = async (user: string, room: string) => {
-        console.log(`$user: ${user} | room: ${room}`);
         try {
             const connection = new HubConnectionBuilder()
                 .withUrl("https://localhost:44317/chat")
                 .configureLogging(LogLevel.Information)
                 .build();
 
-                connection.on("ReceiveMessage", (user, message) => {
-                    setMessages(messages => [...messages, {user, message}]);
+            connection.on("ReceiveMessage", (user, message) => {
+                setMessages(messages => [...messages, {user, message}]);
             });
 
             await connection.start();
@@ -28,7 +27,7 @@ export const Home: React.FC = () => {
         }
     };
 
-    const sendMessage = async (message: Message) => {
+    const sendMessage = async (message: string) => {
         try {
             await connection?.invoke("SendMessage", message);
         } catch (e) {
