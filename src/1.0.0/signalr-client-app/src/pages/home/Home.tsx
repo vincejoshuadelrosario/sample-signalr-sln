@@ -1,9 +1,12 @@
 import * as React from 'react';
-import Lobby from './components/Lobby';
 import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
+import { Message } from '../../models/Message';
+import { Lobby } from './components/Lobby';
+import { Chat } from './components/Chat';
 
-const Home: React.FC = () => {
+export const Home: React.FC = () => {
     const [ connection, setConnection ] = React.useState<HubConnection>();
+    const [ messages, setMessages ] = React.useState<Message[]>([]);
 
     const joinRoom = async (user: string, room: string) => {
         console.log(`$user: ${user} | room: ${room}`);
@@ -14,7 +17,7 @@ const Home: React.FC = () => {
                 .build();
 
                 connection.on("ReceiveMessage", (user, message) => {
-                console.log('message received', message);
+                    setMessages(messages => [...messages, {user, message}]);
             });
 
             await connection.start();
@@ -25,11 +28,21 @@ const Home: React.FC = () => {
         }
     };
 
+    const sendMessage = async (message: Message) => {
+        try {
+            await connection?.invoke("SendMessage", message);
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
     return <div className='app'>
         <h2>MyChat</h2>
         <hr className='line' />
-        <Lobby joinRoom={joinRoom} />
+        {
+            !connection
+            ? <Lobby joinRoom={joinRoom} />
+            : <Chat messages={messages} sendMessage={sendMessage} />
+        }
     </div>;
 }
-
-export default Home;

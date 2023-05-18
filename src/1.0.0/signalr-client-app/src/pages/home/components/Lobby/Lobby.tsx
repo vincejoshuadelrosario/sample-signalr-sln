@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
-import { ILobbyProps } from './ILobbyProps';
+import { ILobbyProps } from '.';
 
-const Lobby: React.FC<ILobbyProps> = ({joinRoom}) => {
+export const Lobby: React.FC<ILobbyProps> = ({joinRoom}) => {
 
     const user = React.useRef<any>();
     const room = React.useRef<any>();
@@ -23,5 +23,3 @@ const Lobby: React.FC<ILobbyProps> = ({joinRoom}) => {
         </Container>
     </Form>;
 }
-
-export default Lobby;
