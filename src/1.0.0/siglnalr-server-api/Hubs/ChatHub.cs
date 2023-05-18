@@ -30,6 +30,19 @@ namespace siglnalr_server_api.Hubs
                         $"{userConnection.User} has joined the room");
         }
 
+        public override Task OnDisconnectedAsync(Exception? exception)
+        {
+            if (_connections.TryGetValue(Context.ConnectionId, out UserConnection? userConnection))
+            {
+                _connections.Remove(Context.ConnectionId);
+                Clients.Group(userConnection.Room)
+                    .SendAsync("ReceiveMessage", _botUser,
+                        $"{userConnection.User} has left the room");
+            }
+
+            return base.OnDisconnectedAsync(exception);
+        }
+
         public async Task SendMessage(string message)
         {
             if (_connections.TryGetValue(Context.ConnectionId, out UserConnection? userConnection))
