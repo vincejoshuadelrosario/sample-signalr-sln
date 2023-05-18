@@ -28,6 +28,8 @@ namespace signalr_server_api.Hubs
                     .SendAsync("ReceiveMessage", _botUser,
                         //$"{userConnection.User} has joined {userConnection.Room}");
                         $"{userConnection.User} has joined the room");
+
+            await SendConnectedUsers(userConnection.Room);
         }
 
         public override Task OnDisconnectedAsync(Exception? exception)
@@ -38,6 +40,8 @@ namespace signalr_server_api.Hubs
                 Clients.Group(userConnection.Room)
                     .SendAsync("ReceiveMessage", _botUser,
                         $"{userConnection.User} has left the room");
+
+                SendConnectedUsers(userConnection.Room);
             }
 
             return base.OnDisconnectedAsync(exception);
@@ -50,6 +54,15 @@ namespace signalr_server_api.Hubs
                 await Clients.Group(userConnection.Room)
                     .SendAsync("ReceiveMessage", userConnection.User, message);
             }
+        }
+
+        private Task SendConnectedUsers(string room)
+        {
+            var users = _connections.Values
+                .Where(c => c.Room == room)
+                .Select(c => c.User);
+
+            return Clients.Group(room).SendAsync("UsersInRoom", users);
         }
     }
 }
