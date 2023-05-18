@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using siglnalr_server_api.Models;
+using signalr_server_api.Models;
 
-namespace siglnalr_server_api.Hubs
+namespace signalr_server_api.Hubs
 {
     public class ChatHub : Hub
     {
