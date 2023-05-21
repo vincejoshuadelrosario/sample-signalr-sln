@@ -1,0 +1,10 @@
+import * as React from 'react';
+import { IConnectedUsersProps } from './IConnectedUsersProps';
+
+export const ConnectedUsers: React.FC<IConnectedUsersProps> = ({ users }) => {
+
+return <div className='user-list'>
+        <h4>Connected Users</h4>
+        {users.map((u, index) => <h6 key={index}>{u}</h6>)}
+    </div>;
+}
