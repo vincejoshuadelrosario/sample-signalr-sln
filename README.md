@@ -30,5 +30,5 @@ This solution showcase SignalR implemenation with ASP.NET Core Web API for the b
 
 | Node | Framework | Version | Date | Solution |
 |---|---|---|---|---|
-| Client | React TypeScript | 1.0.0 | 5-15-2023 | signalr-client-app |
-| Server | ASP.NET Core Web API | 1.0.0 | 5-15-2023 | signalr-server-api |
+| Client | React TypeScript | 1.0.0 | 5-21-2023 | signalr-client-app |
+| Server | ASP.NET Core Web API | 1.0.0 | 5-21-2023 | signalr-server-api |
